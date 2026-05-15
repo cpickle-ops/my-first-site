@@ -15,7 +15,8 @@
 
 <h1>Contact Us</h1>
 
-<form>
+<form id="contact-form">
+
     <label>Name:</label><br>
     <input type="text"><br><br>
 
@@ -27,6 +28,36 @@
 
     <button type="submit">Send</button>
 </form>
+<script>
+document.getElementById("contact-form").addEventListener("submit", function() {
 
+    var email = document.querySelector("input[type=email]").value;
+    var name = document.querySelector("input[type=text]").value;
+
+    if (window.SalesforceInteractions) {
+
+        SalesforceInteractions.sendEvent({
+            interaction: {
+                name: "form_submit"
+            },
+            user: {
+                identities: {
+                    email: email
+                },
+                attributes: {
+                    name: name,
+                    email: email
+                }
+            }
+        });
+
+        console.log("✅ Form submitted and user identified");
+
+    } else {
+        console.log("❌ SalesforceInteractions not available");
+    }
+
+});
+</script>
 </body>
 </html>
