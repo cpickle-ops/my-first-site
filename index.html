@@ -19,6 +19,22 @@
 
 <h1>Welcome to Colin's Coffee Co</h1>
 <p>We serve the best coffee in town.</p>
+<script>
+window.addEventListener("load", function() {
+    if (window.c360a) {
+        c360a.track({
+            event: "page_view",
+            page: {
+                name: "Home",
+                type: "home"
+            }
+        });
 
+        console.log("Page view event sent");
+    } else {
+        console.log("c360a not loaded");
+    }
+});
+</script>
 </body>
 </html>
