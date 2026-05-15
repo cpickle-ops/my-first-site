@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: blue;
+}
+
+button {
+    padding: 8px;
+}
