@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Contact Us</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Contact</title>
 
-    <!-- Salesforce Data Cloud Web SDK -->
     <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
 </head>
 
@@ -27,60 +25,60 @@
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email"><br><br>
 
-    <label for="message">Message:</label><br>
-    <textarea id="message" name="message"></textarea><br><br>
-
     <button type="submit">Send</button>
-
 </form>
 
 <script>
-window.addEventListener("load", function() {
+// Page view
+window.addEventListener("load", function () {
+    setTimeout(function () {
 
-    // Page view
-    setTimeout(function() {
-        if (window.SalesforceInteractions) {
-            SalesforceInteractions.sendEvent({
-                interaction: {
-                    name: "contact_page_view"
-                }
-            });
-            console.log("✅ Contact page view sent");
-        }
-    }, 1000);
+        SalesforceInteractions.sendEvent({
+            interaction: {
+                name: "cart"
+            },
+            eventType: "cart",
+            interactionName: "page_view",
+            pageView: 1,
+            pageUrl: window.location.href,
+            referrerUrl: document.referrer
+        });
 
+        console.log("✅ Contact page view sent");
+
+    }, 500);
 });
 
-// Form submission tracking
+// Form submit
 document.getElementById("contact-form").addEventListener("submit", function(event) {
 
-    event.preventDefault(); // stop page refresh (important for testing)
+    event.preventDefault();
 
     var email = document.getElementById("email").value;
     var name = document.getElementById("name").value;
 
-    if (window.SalesforceInteractions) {
-
-        SalesforceInteractions.sendEvent({
-            interaction: {
-                name: "form_submit"
+    SalesforceInteractions.sendEvent({
+        interaction: {
+            name: "cart"
+        },
+        eventType: "cart",
+        interactionName: "form_submit",
+        pageView: 0,
+        pageUrl: window.location.href,
+        referrerUrl: document.referrer,
+        email: email,
+        name: name,
+        user: {
+            identities: {
+                email: email
             },
-            user: {
-                identities: {
-                    email: email
-                },
-                attributes: {
-                    name: name,
-                    email: email
-                }
+            attributes: {
+                name: name
             }
-        });
+        }
+    });
 
-        console.log("✅ Form submitted and user identified");
-
-    } else {
-        console.log("❌ SalesforceInteractions not available");
-    }
+    console.log("✅ Form submitted + identity captured");
 
 });
 </script>

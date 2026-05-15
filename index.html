@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Colin's Coffee Co</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Home</title>
 
-    <!-- Salesforce Data Cloud Web SDK -->
     <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
-
 </head>
+
 <body>
 
 <nav>
@@ -17,30 +15,26 @@
     <a href="contact.html">Contact</a>
 </nav>
 
-<h1>Welcome to Colin's Coffee Co</h1>
-<p>We serve the best coffee in town.</p>
+<h1>Welcome to our website</h1>
 
 <script>
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
+    setTimeout(function () {
 
-    setTimeout(function() {
+        SalesforceInteractions.sendEvent({
+            interaction: {
+                name: "cart"
+            },
+            eventType: "cart",
+            interactionName: "page_view",
+            pageView: 1,
+            pageUrl: window.location.href,
+            referrerUrl: document.referrer
+        });
 
-        if (window.SalesforceInteractions) {
+        console.log("✅ Home page view sent");
 
-            SalesforceInteractions.sendEvent({
-                interaction: {
-                    name: "page_view"
-                }
-            });
-
-            console.log("✅ Page view event sent");
-
-        } else {
-            console.log("❌ SalesforceInteractions not loaded");
-        }
-
-    }, 1000);
-
+    }, 500);
 });
 </script>
 
