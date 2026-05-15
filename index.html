@@ -19,28 +19,30 @@
 
 <h1>Welcome to Colin's Coffee Co</h1>
 <p>We serve the best coffee in town.</p>
+
 <script>
 window.addEventListener("load", function() {
 
     setTimeout(function() {
 
-        if (window.c360a) {
-            c360a.track({
-                event: "page_view",
-                page: {
-                    name: "Home",
-                    type: "home"
+        if (window.SalesforceInteractions) {
+
+            SalesforceInteractions.sendEvent({
+                interaction: {
+                    name: "page_view"
                 }
             });
 
             console.log("✅ Page view event sent");
+
         } else {
-            console.log("❌ c360a not loaded");
+            console.log("❌ SalesforceInteractions not loaded");
         }
 
-    }, 1000); // wait 1 second
+    }, 1000);
 
 });
 </script>
+
 </body>
 </html>
