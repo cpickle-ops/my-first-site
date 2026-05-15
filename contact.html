@@ -3,7 +3,11 @@
 <head>
     <title>Contact Us</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Salesforce Data Cloud Web SDK -->
+    <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
 </head>
+
 <body>
 
 <nav>
@@ -17,22 +21,43 @@
 
 <form id="contact-form">
 
-    <label>Name:</label><br>
-    <input type="text"><br><br>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br><br>
 
-    <label>Email:</label><br>
-    <input type="email"><br><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br><br>
 
-    <label>Message:</label><br>
-    <textarea></textarea><br><br>
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message"></textarea><br><br>
 
     <button type="submit">Send</button>
-</form>
-<script>
-document.getElementById("contact-form").addEventListener("submit", function() {
 
-    var email = document.querySelector("input[type=email]").value;
-    var name = document.querySelector("input[type=text]").value;
+</form>
+
+<script>
+window.addEventListener("load", function() {
+
+    // Page view
+    setTimeout(function() {
+        if (window.SalesforceInteractions) {
+            SalesforceInteractions.sendEvent({
+                interaction: {
+                    name: "contact_page_view"
+                }
+            });
+            console.log("✅ Contact page view sent");
+        }
+    }, 1000);
+
+});
+
+// Form submission tracking
+document.getElementById("contact-form").addEventListener("submit", function(event) {
+
+    event.preventDefault(); // stop page refresh (important for testing)
+
+    var email = document.getElementById("email").value;
+    var name = document.getElementById("name").value;
 
     if (window.SalesforceInteractions) {
 
@@ -59,5 +84,6 @@ document.getElementById("contact-form").addEventListener("submit", function() {
 
 });
 </script>
+
 </body>
 </html>
