@@ -42,25 +42,28 @@ document.getElementById("contact-form").addEventListener("submit", function(even
   var firstName = document.getElementById("firstName").value;
   var lastName = document.getElementById("lastName").value;
 
-  SalesforceInteractions.sendEvent({
-    interaction: {
-      name: "cccwebsite"
-    },
-    category: "identity",
-    eventType: "form_submit",
-    interactionName: "contact_form_submit",
 
-    user: {
-      identities: {
-        email: email
-      },
-      attributes: {
-        firstName: firstName,
-        lastName: lastName,
-        eventType: "identity_update"
-      }
+SalesforceInteractions.sendEvent({
+  interaction: {
+    name: "cccwebsite"
+  },
+  category: "identity",
+  eventType: "form_submit",
+  interactionName: "contact_form_submit",
+  email: email,
+
+  user: {
+    identities: {
+      email: email
+    },
+    attributes: {
+      firstName: firstName,
+      lastName: lastName,
+      eventType: "identity_update"
     }
-  });
+  }
+});
+
 
   console.log("✅ Identity event sent with email + firstName + lastName");
 });
