@@ -34,6 +34,7 @@
 </form>
 
 <script>
+
 document.getElementById("contact-form").addEventListener("submit", function(event) {
   event.preventDefault();
 
@@ -55,14 +56,15 @@ document.getElementById("contact-form").addEventListener("submit", function(even
       },
       attributes: {
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        eventType: "identity_update"
       }
     }
-
   });
 
   console.log("✅ Identity event sent with email + firstName + lastName");
 });
+
 </script>
 
 </body>
