@@ -2,7 +2,10 @@
 <html>
 <head>
   <title>Contact</title>
+
+  <!-- Salesforce Data Cloud Web SDK -->
   <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
+
 </head>
 <body>
 
@@ -16,13 +19,18 @@
 <h1>Contact Us</h1>
 
 <form id="contact-form">
-  <label for="name">Name:</label><br>
-  <input type="text" id="name" name="name"><br><br>
+
+  <label for="firstName">First Name:</label><br>
+  <input type="text" id="firstName" name="firstName"><br><br>
+
+  <label for="lastName">Last Name:</label><br>
+  <input type="text" id="lastName" name="lastName"><br><br>
 
   <label for="email">Email:</label><br>
   <input type="email" id="email" name="email"><br><br>
 
   <button type="submit">Send</button>
+
 </form>
 
 <script>
@@ -30,6 +38,8 @@ document.getElementById("contact-form").addEventListener("submit", function(even
   event.preventDefault();
 
   var email = document.getElementById("email").value;
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
 
   SalesforceInteractions.sendEvent({
     interaction: {
@@ -38,14 +48,20 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     category: "identity",
     eventType: "form_submit",
     interactionName: "contact_form_submit",
+
     user: {
       identities: {
         email: email
+      },
+      attributes: {
+        firstName: firstName,
+        lastName: lastName
       }
     }
+
   });
 
-  console.log("✅ Form submitted + identity captured");
+  console.log("✅ Identity event sent with email + firstName + lastName");
 });
 </script>
 
