@@ -45,32 +45,32 @@ document.getElementById("contact-form").addEventListener("submit", function(even
   console.log(email, firstName, lastName);
   console.groupEnd();
 
-  SalesforceInteractions.sendEvent({
+SalesforceInteractions.sendEvent({
 
   interaction: {
     name: "cccwebsite"
   },
 
   category: "identity",
-  eventType: "identity",
+
+  // ✅ THIS is the correct value for your schema
+  eventType: "identity_update",
+
   interactionName: "contact_form_submit",
 
-  // ✅ REQUIRED (Contact Point Email)
   email: email,
 
-  // ✅ ✅ CRITICAL → MOVE THESE TO TOP LEVEL
-  firstName: firstName,
-  lastName: lastName,
-  isAnonymous: 0,
-
-  // ✅ Consent stays here
   consents: [{
     provider: "CCC",
     purpose: SalesforceInteractions.ConsentPurpose.Tracking,
     status: SalesforceInteractions.ConsentStatus.OptIn
   }],
 
-  // ✅ Keep this for identity resolution only
+  // ✅ Top-level fields (critical)
+  firstName: firstName,
+  lastName: lastName,
+  isAnonymous: 0,
+
   user: {
     identities: {
       email: email
