@@ -47,10 +47,8 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
 SalesforceInteractions.sendEvent({
 
-  // ❌ REMOVE interaction.name
-
   category: "identity",
-  eventType: "identity",
+  eventType: "identity_update",
 
   consents: [{
     provider: "CCC",
