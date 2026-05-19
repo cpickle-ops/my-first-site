@@ -3,9 +3,8 @@
 <head>
   <title>Contact</title>
 
-  <!-- ✅ Data Cloud SDK -->
+  <!-- Data Cloud SDK -->
   <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
-
 </head>
 <body>
 
@@ -45,7 +44,7 @@ document.getElementById("contact-form").addEventListener("submit", function(even
   console.group("🧠 FORM DATA");
   console.log(email, firstName, lastName);
   console.groupEnd();
-  
+
   SalesforceInteractions.sendEvent({
 
     interaction: {
@@ -54,11 +53,20 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
     category: "identity",
 
-     eventType: "identity",
+    // ✅ CRITICAL: must be identity
+    eventType: "identity",
 
     interactionName: "contact_form_submit",
 
+    // ✅ REQUIRED → Contact Point Email
     email: email,
+
+    // ✅ 🔥 THIS IS THE FIX YOU ARE MISSING
+    consents: [{
+      provider: "CCC",
+      purpose: SalesforceInteractions.ConsentPurpose.Tracking,
+      status: SalesforceInteractions.ConsentStatus.OptIn
+    }],
 
     user: {
       identities: {
@@ -75,7 +83,6 @@ document.getElementById("contact-form").addEventListener("submit", function(even
   });
 
   console.log("✅ Identity event sent");
-
 
 });
 </script>
