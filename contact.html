@@ -3,7 +3,7 @@
 <head>
   <title>Contact</title>
 
-  <!-- Salesforce Data Cloud Web SDK -->
+  <!-- ✅ Salesforce Data Cloud Web SDK -->
   <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
 
 </head>
@@ -34,40 +34,57 @@
 </form>
 
 <script>
-
 document.getElementById("contact-form").addEventListener("submit", function(event) {
   event.preventDefault();
 
-  var email = document.getElementById("email").value;
-  var firstName = document.getElementById("firstName").value;
-  var lastName = document.getElementById("lastName").value;
+  const email = document.getElementById("email").value;
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
 
+  // ✅ Debug output
+  console.group("🧠 IDENTITY EVENT DEBUG");
+  console.log("Email:", email);
+  console.log("First Name:", firstName);
+  console.log("Last Name:", lastName);
+  console.groupEnd();
 
-SalesforceInteractions.sendEvent({
-  interaction: {
-    name: "cccwebsite"
-  },
-  category: "identity",
-  eventType: "form_submit",
-  interactionName: "contact_form_submit",
-  email: email,
+  // ✅ Send identity event
+  SalesforceInteractions.sendEvent({
 
-  user: {
-    identities: {
-      email: email
+    interaction: {
+      name: "cccwebsite"
     },
-    attributes: {
-      firstName: firstName,
-      lastName: lastName,
-      eventType: "identity_update"
+
+    category: "identity",
+    eventType: "form_submit",
+    interactionName: "contact_form_submit",
+
+    // ✅ REQUIRED → Contact Point Email mapping
+    email: email,
+
+    // ✅ CRITICAL FIX → attach consent directly to THIS event
+    consents: [{
+      status: SalesforceInteractions.ConsentStatus.OptIn,
+      purpose: SalesforceInteractions.ConsentPurpose.Tracking,
+      provider: "CCC"
+    }],
+
+    user: {
+      identities: {
+        email: email
+      },
+      attributes: {
+        firstName: firstName,
+        lastName: lastName,
+        eventType: "identity_update"
+      }
     }
-  }
+
+  });
+
+  console.log("✅ Identity event sent with consent + email + profile data");
+
 });
-
-
-  console.log("✅ Identity event sent with email + firstName + lastName");
-});
-
 </script>
 
 </body>
