@@ -56,15 +56,7 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     eventType: "form_submit",
     interactionName: "contact_form_submit",
 
-    // ✅ REQUIRED → Contact Point Email
     email: email,
-
-    // ✅ ✅ THIS IS THE CRITICAL FIX
-    consents: [{
-      provider: "CCC",
-      purpose: SalesforceInteractions.ConsentPurpose.Tracking,
-      status: SalesforceInteractions.ConsentStatus.OptIn
-    }],
 
     user: {
       identities: {
@@ -73,6 +65,7 @@ document.getElementById("contact-form").addEventListener("submit", function(even
       attributes: {
         firstName: firstName,
         lastName: lastName,
+        email: email,
         eventType: "identity_update"
       }
     }
