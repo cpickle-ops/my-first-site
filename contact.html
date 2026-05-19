@@ -56,18 +56,26 @@ SalesforceInteractions.sendEvent({
     status: SalesforceInteractions.ConsentStatus.OptIn
   }],
 
+  // ✅ Top-level (for Data Cloud output)
   email: email,
   firstName: firstName,
   lastName: lastName,
   isAnonymous: 0,
 
+  // ✅ CRITICAL: ALSO include attributes (for schema mapping)
   user: {
     identities: {
       email: email
+    },
+    attributes: {
+      firstName: firstName,
+      lastName: lastName,
+      eventType: "identity_update"  
     }
   }
 
 });
+
 
   console.log("✅ Identity event sent");
 
