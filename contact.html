@@ -47,40 +47,37 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
   SalesforceInteractions.sendEvent({
 
-    interaction: {
-      name: "cccwebsite"
-    },
+  interaction: {
+    name: "cccwebsite"
+  },
 
-    category: "identity",
+  category: "identity",
+  eventType: "identity",
+  interactionName: "contact_form_submit",
 
-    // ✅ CRITICAL: must be identity
-    eventType: "identity",
+  // ✅ REQUIRED (Contact Point Email)
+  email: email,
 
-    interactionName: "contact_form_submit",
+  // ✅ ✅ CRITICAL → MOVE THESE TO TOP LEVEL
+  firstName: firstName,
+  lastName: lastName,
+  isAnonymous: 0,
 
-    // ✅ REQUIRED → Contact Point Email
-    email: email,
+  // ✅ Consent stays here
+  consents: [{
+    provider: "CCC",
+    purpose: SalesforceInteractions.ConsentPurpose.Tracking,
+    status: SalesforceInteractions.ConsentStatus.OptIn
+  }],
 
-    // ✅ 🔥 THIS IS THE FIX YOU ARE MISSING
-    consents: [{
-      provider: "CCC",
-      purpose: SalesforceInteractions.ConsentPurpose.Tracking,
-      status: SalesforceInteractions.ConsentStatus.OptIn
-    }],
-
-    user: {
-      identities: {
-        email: email
-      },
-      attributes: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        isAnonymous: 0
-      }
+  // ✅ Keep this for identity resolution only
+  user: {
+    identities: {
+      email: email
     }
+  }
 
-  });
+});
 
   console.log("✅ Identity event sent");
 
