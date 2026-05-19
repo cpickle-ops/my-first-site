@@ -3,7 +3,7 @@
 <head>
   <title>Contact</title>
 
-  <!-- ✅ Salesforce Data Cloud Web SDK -->
+  <!-- ✅ Data Cloud SDK -->
   <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
 
 </head>
@@ -20,14 +20,14 @@
 
 <form id="contact-form">
 
-  <label for="firstName">First Name:</label><br>
-  <input type="text" id="firstName" name="firstName"><br><br>
+  <label>First Name:</label><br>
+  <input type="text" id="firstName"><br><br>
 
-  <label for="lastName">Last Name:</label><br>
-  <input type="text" id="lastName" name="lastName"><br><br>
+  <label>Last Name:</label><br>
+  <input type="text" id="lastName"><br><br>
 
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email"><br><br>
+  <label>Email:</label><br>
+  <input type="email" id="email"><br><br>
 
   <button type="submit">Send</button>
 
@@ -35,20 +35,17 @@
 
 <script>
 document.getElementById("contact-form").addEventListener("submit", function(event) {
+
   event.preventDefault();
 
   const email = document.getElementById("email").value;
   const firstName = document.getElementById("firstName").value;
   const lastName = document.getElementById("lastName").value;
 
-  // ✅ Debug output
-  console.group("🧠 IDENTITY EVENT DEBUG");
-  console.log("Email:", email);
-  console.log("First Name:", firstName);
-  console.log("Last Name:", lastName);
+  console.group("🧠 FORM DATA");
+  console.log(email, firstName, lastName);
   console.groupEnd();
 
-  // ✅ Send identity event
   SalesforceInteractions.sendEvent({
 
     interaction: {
@@ -59,14 +56,14 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     eventType: "form_submit",
     interactionName: "contact_form_submit",
 
-    // ✅ REQUIRED → Contact Point Email mapping
+    // ✅ REQUIRED → Contact Point Email
     email: email,
 
-    // ✅ CRITICAL FIX → attach consent directly to THIS event
+    // ✅ ✅ THIS IS THE CRITICAL FIX
     consents: [{
-      status: SalesforceInteractions.ConsentStatus.OptIn,
+      provider: "CCC",
       purpose: SalesforceInteractions.ConsentPurpose.Tracking,
-      provider: "CCC"
+      status: SalesforceInteractions.ConsentStatus.OptIn
     }],
 
     user: {
@@ -82,7 +79,7 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
   });
 
-  console.log("✅ Identity event sent with consent + email + profile data");
+  console.log("✅ Identity event sent");
 
 });
 </script>
