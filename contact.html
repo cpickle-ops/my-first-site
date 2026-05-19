@@ -45,7 +45,7 @@ document.getElementById("contact-form").addEventListener("submit", function(even
   console.group("🧠 FORM DATA");
   console.log(email, firstName, lastName);
   console.groupEnd();
-
+  
   SalesforceInteractions.sendEvent({
 
     interaction: {
@@ -53,7 +53,9 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     },
 
     category: "identity",
-    eventType: "form_submit",
+
+     eventType: "identity",
+
     interactionName: "contact_form_submit",
 
     email: email,
@@ -66,13 +68,14 @@ document.getElementById("contact-form").addEventListener("submit", function(even
         firstName: firstName,
         lastName: lastName,
         email: email,
-        eventType: "identity_update"
+        isAnonymous: 0
       }
     }
 
   });
 
   console.log("✅ Identity event sent");
+
 
 });
 </script>
