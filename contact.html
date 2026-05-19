@@ -47,18 +47,10 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
 SalesforceInteractions.sendEvent({
 
-  interaction: {
-    name: "cccwebsite"
-  },
+  // ❌ REMOVE interaction.name
 
   category: "identity",
-
-  // ✅ THIS is the correct value for your schema
-  eventType: "identity_update",
-
-  interactionName: "contact_form_submit",
-
-  email: email,
+  eventType: "identity",
 
   consents: [{
     provider: "CCC",
@@ -66,7 +58,7 @@ SalesforceInteractions.sendEvent({
     status: SalesforceInteractions.ConsentStatus.OptIn
   }],
 
-  // ✅ Top-level fields (critical)
+  email: email,
   firstName: firstName,
   lastName: lastName,
   isAnonymous: 0,
