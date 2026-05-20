@@ -47,11 +47,6 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
 SalesforceInteractions.sendEvent({
 
-
-category: "identity",
-  eventType: "identity_update",
-
-  
   consents: [{
     provider: "CCC",
     purpose: SalesforceInteractions.ConsentPurpose.Tracking,
@@ -71,7 +66,8 @@ user: {
   attributes: {
     eventType: "identity",
     firstName: firstName,
-    lastName: lastName
+    lastName: lastName,
+    email: email
   }
 }
 });
