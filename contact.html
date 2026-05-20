@@ -5,9 +5,6 @@
 
   <!-- Salesforce SDK -->
   <script src="https://cdn.c360a.salesforce.com/beacon/c360a/b6017cc2-5283-4e07-a2d0-5df228a8fb3f/scripts/c360a.min.js"></script>
-
-  <!-- Sitemap -->
-  <script src="myfirstwebsite-sitemap.js"></script>
 </head>
 
 <body>
@@ -59,12 +56,7 @@ document.getElementById("contact-form").addEventListener("submit", function(even
         email: email
       },
       attributes: {
-        eventId: "evt_" + Date.now(),
         eventType: "identity",
-        category: "Profile",
-        dateTime: new Date().toISOString(),
-        deviceId: localStorage.getItem("deviceId") || "unknown",
-        sessionId: SalesforceInteractions.getSessionId(),
         firstName: firstName,
         lastName: lastName,
         email: email,
