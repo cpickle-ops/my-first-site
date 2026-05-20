@@ -4,7 +4,7 @@
   <title>Contact</title>
 
   <!-- Data Cloud SDK -->
-  <script src="https://cdn.c360a.salesforce.com/beacon/c360a/6663e05d-c49f-4650-a43e-98b1e49598b1/scripts/c360a.min.js"></script>
+  <script src="https://cdn.c360a.salesforce.com/beacon/c360a/b6017cc2-5283-4e07-a2d0-5df228a8fb3f/scripts/c360a.min.js"></script>
 </head>
 <body>
 
@@ -47,27 +47,21 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
 SalesforceInteractions.sendEvent({
 
-  category: "identity",
-  eventType: "identity_update",
+interaction: {
+  name: "Login"
+},
 
-  consents: [{
-    provider: "CCC",
-    purpose: SalesforceInteractions.ConsentPurpose.Tracking,
-    status: SalesforceInteractions.ConsentStatus.OptIn
-  }],
+user: {
+  identities: {
+    email: email
+  },
 
-  // ✅ MUST BE TOP LEVEL (schema requirement)
-  email: email,
-  firstName: firstName,
-  lastName: lastName,
-  isAnonymous: 0,
-
-  user: {
-    identities: {
-      email: email
-    }
+  attributes: {
+    eventType: "identity",
+    firstName: firstName,
+    lastName: lastName
   }
-
+}
 });
 
   console.log("✅ Identity event sent");
