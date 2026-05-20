@@ -47,13 +47,12 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
 SalesforceInteractions.sendEvent({
 
-consents: [
-    {
-      provider: "Test Provider",
-      purpose: "Tracking",
-      status: SalesforceInteractions.ConsentStatus.OptIn,
-    },
-  ],  
+  consents: [{
+    provider: "CCC",
+    purpose: SalesforceInteractions.ConsentPurpose.Tracking,
+    status: SalesforceInteractions.ConsentStatus.OptIn
+  }],
+
 
 interaction: {
   name: "Login"
