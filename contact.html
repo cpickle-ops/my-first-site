@@ -3,9 +3,13 @@
 <head>
   <title>Contact</title>
 
-  <!-- Data Cloud SDK -->
+  <!-- Salesforce SDK -->
   <script src="https://cdn.c360a.salesforce.com/beacon/c360a/b6017cc2-5283-4e07-a2d0-5df228a8fb3f/scripts/c360a.min.js"></script>
+
+  <!-- Sitemap -->
+  <script src="myfirstwebsite-sitemap.js"></script>
 </head>
+
 <body>
 
 <nav>
@@ -18,7 +22,6 @@
 <h1>Contact Us</h1>
 
 <form id="contact-form">
-
   <label>First Name:</label><br>
   <input type="text" id="firstName"><br><br>
 
@@ -29,51 +32,48 @@
   <input type="email" id="email"><br><br>
 
   <button type="submit">Send</button>
-
 </form>
 
 <script>
 document.getElementById("contact-form").addEventListener("submit", function(event) {
-
   event.preventDefault();
 
   const email = document.getElementById("email").value;
   const firstName = document.getElementById("firstName").value;
   const lastName = document.getElementById("lastName").value;
 
-  console.group("🧠 FORM DATA");
-  console.log(email, firstName, lastName);
-  console.groupEnd();
+  // ✅ STORE FOR FUTURE EVENTS
+  window.userData = {
+    email,
+    firstName,
+    lastName
+  };
 
-SalesforceInteractions.sendEvent({
-
-  consents: [{
-    provider: "CCC",
-    purpose: SalesforceInteractions.ConsentPurpose.Tracking,
-    status: SalesforceInteractions.ConsentStatus.OptIn
-  }],
-
-
-interaction: {
-  name: "Login"
-},
-
-user: {
-  identities: {
-    email: email
-  },
-
-  attributes: {
-    eventType: "identity",
-    firstName: firstName,
-    lastName: lastName,
-    email: email
-  }
-}
-});
+  // ✅ SEND IDENTITY EVENT (aligned to schema)
+  SalesforceInteractions.sendEvent({
+    interaction: {
+      name: "IdentityCapture"
+    },
+    user: {
+      identities: {
+        email: email
+      },
+      attributes: {
+        eventId: "evt_" + Date.now(),
+        eventType: "identity",
+        category: "Profile",
+        dateTime: new Date().toISOString(),
+        deviceId: localStorage.getItem("deviceId") || "unknown",
+        sessionId: SalesforceInteractions.getSessionId(),
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        isAnonymous: 0
+      }
+    }
+  });
 
   console.log("✅ Identity event sent");
-
 });
 </script>
 
