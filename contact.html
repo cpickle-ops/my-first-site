@@ -3,69 +3,78 @@
 <head>
   <title>Contact</title>
 
-  <!-- Salesforce SDK -->
+  <!-- Salesforce SDK (UNCHANGED) -->
   <script src="https://cdn.c360a.salesforce.com/beacon/c360a/b6017cc2-5283-4e07-a2d0-5df228a8fb3f/scripts/c360a.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="services.html">Services</a>
-  <a href="contact.html">Contact</a>
+<nav class="navbar">
+  <div class="logo">⚡ DemoBrand</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+  </div>
 </nav>
 
-<h1>Contact Us</h1>
+<section class="page-header">
+  <h1>Contact Us</h1>
+  <p>Register your details to experience personalised marketing journeys.</p>
+</section>
 
-<form id="contact-form">
-  <label>First Name:</label><br>
-  <input type="text" id="firstName"><br><br>
+<section class="form-section">
+  <form id="contact-form" class="form-card">
+    <label>First Name:</label>
+    <input type="text" id="firstName" required>
 
-  <label>Last Name:</label><br>
-  <input type="text" id="lastName"><br><br>
+    <label>Last Name:</label>
+    <input type="text" id="lastName" required>
 
-  <label>Email:</label><br>
-  <input type="email" id="email"><br><br>
+    <label>Email:</label>
+    <input type="email" id="email" required>
 
-  <button type="submit">Send</button>
-</form>
+    <button type="submit" class="btn-primary">Submit</button>
+  </form>
+</section>
 
+<!-- ✅ DO NOT TOUCH BELOW -->
 <script>
 document.getElementById("contact-form").addEventListener("submit", function(event) {
-  event.preventDefault();
+ event.preventDefault();
 
-  const email = document.getElementById("email").value;
-  const firstName = document.getElementById("firstName").value;
-  const lastName = document.getElementById("lastName").value;
+ const email = document.getElementById("email").value;
+ const firstName = document.getElementById("firstName").value;
+ const lastName = document.getElementById("lastName").value;
 
-  // ✅ STORE FOR FUTURE EVENTS
-  window.userData = {
-    email,
-    firstName,
-    lastName
-  };
+ window.userData = {
+ email,
+ firstName,
+ lastName
+ };
 
-  // ✅ SEND IDENTITY EVENT (aligned to schema)
-  SalesforceInteractions.sendEvent({
-    interaction: {
-      name: "IdentityCapture"
-    },
-    user: {
-      identities: {
-        email: email
-      },
-      attributes: {
-        eventType: "identity",
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        isAnonymous: 0
-      }
-    }
-  });
+ SalesforceInteractions.sendEvent({
+ interaction: {
+ name: "IdentityCapture"
+ },
+ user: {
+ identities: {
+ email: email
+ },
+ attributes: {
+ eventType: "identity",
+ firstName: firstName,
+ lastName: lastName,
+ email: email,
+ isAnonymous: 0
+ }
+ }
+ });
 
-  console.log("✅ Identity event sent");
+ console.log("✅ Identity event sent");
 });
 </script>
 

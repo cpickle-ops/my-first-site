@@ -1,18 +1,125 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f7fa;
+  color: #333;
 }
 
-nav {
-    margin-bottom: 20px;
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #0b5cab;
+  color: white;
 }
 
-nav a {
-    margin-right: 10px;
-    text-decoration: none;
-    color: blue;
+.navbar a {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-button {
-    padding: 8px;
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* HERO + HEADER */
+.page-header {
+  text-align: center;
+  padding: 50px 20px;
+  background: white;
+}
+
+.page-header h1 {
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  color: #666;
+}
+
+/* FEATURES / CARDS */
+.features {
+  display: flex;
+  gap: 20px;
+  padding: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.feature {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.feature img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* CONTENT SECTIONS */
+.content {
+  padding: 40px;
+  text-align: center;
+}
+
+.highlight {
+  background: #e8f1fb;
+}
+
+/* CTA */
+.cta-section {
+  text-align: center;
+  padding: 50px 20px;
+  background: white;
+}
+
+.btn-primary {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #0b5cab;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background: #094a8a;
+}
+
+/* FORM (for contact page consistency) */
+.form-section {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.form-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.form-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
